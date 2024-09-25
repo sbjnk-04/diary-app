@@ -89,7 +89,19 @@ while True:
                 break
         view_window.close()
     if event == 'Delete all entries':
-        delete()
+        delete_layout = [[sg.Text("Are you sure? This process cannot be undone")],
+                         [sg.Button('Delete')],
+                         [sg.Button('Exit')]]
+        delete_window = sg.Window('Deleting', delete_layout)
+        while True:
+            delete_event, delete_values = delete_window.read()
+            if delete_event == 'Exit' or delete_event == sg.WIN_CLOSED:
+                sg.popup('Exiting delete mode...')
+                break
+            else:
+                delete()
+        delete_window.close()
+
     if event == sg.WIN_CLOSED or event == 'Exit': 
         sg.popup('Exiting diary. See you soon!.', no_titlebar=True)
         break
