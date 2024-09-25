@@ -19,14 +19,13 @@ def write(entry_date, entry_text):
 def view():
     if os.path.exists(diaryfile):
         with open(diaryfile, 'r') as file:
-            content = file.read()
-            if content:
-                print("\nYour diary entries: ")
-                print(content)
+            text = file.read()
+            if text:
+                return text
             else:
-                print("\nNo entries found. Get to writing!")
+                return "No entries found. Get to writing!"
     else:
-        print("\nNo entries found.")
+        return "No content!"
 
 def delete():
     if os.path.exists(diaryfile):
@@ -67,7 +66,7 @@ while True:
                         [sg.Text('Date and time: ' + entry_date)],
                         [sg.Button('Save')],
                         [sg.Button('Exit')]]
-        write_window = sg.Window('writing', write_layout)
+        write_window = sg.Window('Writing', write_layout)
         while True:
             write_event, write_values = write_window.read()
             if write_event == 'Save':
@@ -78,7 +77,17 @@ while True:
                 sg.popup('Exiting writing mode...', no_titlebar=True)
                 break
     if event == 'View all entries':
-        view()
+        entries = view()
+        view_layout = [[sg.Text('Your entries:')],
+                       [sg.Multiline(entries, size=(50,10), disabled=True)],
+                       [sg.Button('Exit')]]
+        view_window = sg.Window('Viewing', view_layout)
+        while True:
+            view_event, view_values = view_window.read()
+            if view_event == 'Exit' or view_event == sg.WIN_CLOSED:
+                sg.popup('Exiting viewing mode...', no_titlebar=True)
+                break
+        view_window.close()
     if event == 'Delete all entries':
         delete()
     if event == sg.WIN_CLOSED or event == 'Exit': 
