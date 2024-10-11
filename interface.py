@@ -49,14 +49,16 @@ def delete():
 #         else:
 #             print("Invalid option, try again.")
 
-layout = [  [sg.Text('Welcome to diary!')],
+sg.theme('Default')
+
+layout = [  [sg.Text('Welcome to diary!', font=('Times New Roman', 24, 'bold'))],
             [sg.Text('What would you like to do today?')],
             [sg.Button('Write')],
             [sg.Button('View all entries')], 
             [sg.Button('Delete all entries')],
             [sg.Button('Exit')]]
 
-window = sg.Window('Diary', layout)
+window = sg.Window('Diary', layout, size=(960, 540))
 entry_date = datetime.datetime.now().strftime("%y-%m-%d %H:%M:%S")
 
 while True:
@@ -73,7 +75,7 @@ while True:
                 write(entry_date, write_values['entry_text'])
                 sg.popup('Your entry has been saved!', no_titlebar=True)
                 break
-            elif event == 'Exit':
+            elif write_event == 'Exit' or write_event == sg.WIN_CLOSED:
                 sg.popup('Exiting writing mode...', no_titlebar=True)
                 break
     if event == 'View all entries':
