@@ -34,29 +34,15 @@ def delete():
     else:
         print("There are no entries to delete.")
 
-# def main():
-#     while True:
-#         option = menu()
-#         if option == "1":
-#             write()
-#         elif option == "2":
-#             view()
-#         elif option == "3":
-#             delete()
-#         elif option == "4":
-#             print("Exiting diary. See you again!")
-#             break
-#         else:
-#             print("Invalid option, try again.")
 
 sg.theme('Default')
 
-layout = [  [sg.Text('Welcome to diary!', font=('Times New Roman', 24, 'bold'))],
-            [sg.Text('What would you like to do today?')],
-            [sg.Button('Write')],
-            [sg.Button('View all entries')], 
-            [sg.Button('Delete all entries')],
-            [sg.Button('Exit')]]
+layout = [  [sg.Text('Welcome to diary!', font=('Times New Roman', 24, 'bold'), justification='center', size=(20, 2), pad=(0,10), expand_x=True)],
+            [sg.Text('What would you like to do today?', justification='center', size=(20, 2), pad=(0,10), expand_x=True)],
+            [sg.Button('Write', size=(10, 2), pad=(0,10), expand_x=True)],
+            [sg.Button('View all entries', size=(10, 2), pad=(0,10), expand_x=True)], 
+            [sg.Button('Delete all entries', size=(10, 2), pad=(0,10), expand_x=True)],
+            [sg.Button('Exit', size=(10, 2), pad=(0,10), expand_x=True)] ],
 
 window = sg.Window('Diary', layout, size=(960, 540))
 entry_date = datetime.datetime.now().strftime("%y-%m-%d %H:%M:%S")
